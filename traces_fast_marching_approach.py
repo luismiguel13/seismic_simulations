@@ -87,7 +87,7 @@ def plot_results_traces(x, x_result, pattern_rand, case):
     plt.show()
 
 
-def fastMarching_approach(data_path, data_format='numpy', exp_number=1, H=None):
+def fastMarching_approach(data_path, data_format='numpy', exp_number=1, H=None,index=None):
     """
 
     Parameters
@@ -101,7 +101,9 @@ def fastMarching_approach(data_path, data_format='numpy', exp_number=1, H=None):
     -------
     The reconstructed cube
     """
+    inicio = time.time()
     r = []
+    s = []
     for exp in range(exp_number):
         if data_format == 'matlab':
             data = hdf5storage.loadmat(data_path)['RL3042']
@@ -112,7 +114,10 @@ def fastMarching_approach(data_path, data_format='numpy', exp_number=1, H=None):
             data = data.T
 
         if len(data.shape) > 2:
-            data = data[:, :, int(data.shape[-1] / 2)]
+            if index is None:
+                data = data[:, :, int(data.shape[-1] / 2)]
+            else:
+                data = data[:, :, index]
         '''
         ---------------  SAMPLING --------------------
         '''
@@ -169,9 +174,31 @@ def fastMarching_approach(data_path, data_format='numpy', exp_number=1, H=None):
         x = x_copy.copy()
         print(PSNR(x, output))
         r.append(PSNR(x, output))
+        s.append(ssim(x,output))
         plot_results_traces(x, output, pattern_rand, 'Fast Marching (Inpainting)')
-
-    print(f"Mean Result: {np.mean(r)}")
+        
+    fin = time.time()
+    print(f"Time: {fin-inicio}")
+   
+    psnr_list = []
+    ssim_list = []
+    rem_traces = np.arange(len(pattern_rand))
+    rem_traces = rem_traces[pattern_rand == 0]
+    print(rem_traces)
+    for i in range(len(rem_traces)):
+        psnr_list.append(PSNR(x[:, rem_traces[i]], output[:, rem_traces[i]]))
+        ssim_list.append(ssim(x[:, rem_traces[i]], output[:, rem_traces[i]]))
+        
+    print(f"PSNR:")
+    print(f"Min Result: {np.min(psnr_list)}")
+    print(f"Mean Result: {np.mean(psnr_list)}")
+    print(f"STD Result: {np.std(psnr_list)}")
+    print(f"Max Result: {np.max(psnr_list)}")
+    print(f"SSIM:")
+    print(f"Min Result: {np.min(ssim_list)}")
+    print(f"Mean Result: {np.mean(ssim_list)}")
+    print(f"STD Result: {np.std(ssim_list)}")
+    print(f"Max Result: {np.max(ssim_list)}")   
 
 
 if __name__ == '__main__':
