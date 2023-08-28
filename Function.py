@@ -317,6 +317,24 @@ def random_sampling(x, sr, seed=None):
     pattern_bool = np.asarray(pattern_vec, dtype=bool)
 
     return out, pattern_vec, pattern_bool
+    
+def matriz_H(index,size):
+    H_list = list(np.linspace(0,size-1,size))
+    H_ = []
+    iter = 0
+    for i in range(len(H_list)):
+        if iter == len(index):
+            H_.append(1)
+        else:
+            if i == index[iter]:
+                H_.append(0)
+                iter=iter+1
+            else:
+                H_.append(1)
+            
+    H_ = np.array(H_)
+    H_ = np.asarray(H_, dtype=bool)
+    return H_
 
 
 def dct2():

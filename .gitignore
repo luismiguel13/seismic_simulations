@@ -4,3 +4,5 @@ data/data_seismic_marine_25m_81shots.npy
 data/gas_lens_devito.npy
 data/spii_ga.npy
 data/syn3D_cross-spread.npy
+data/spii_180s.npy
+data/gas_lens_devito_70s.npy
