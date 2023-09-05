@@ -44,6 +44,7 @@ def plot_results_traces(x, x_result, pattern_rand, case):
     axs[0, 1].set_title(f'Reconstructed \n PSNR: {metric:0.2f} dB, \n SSIM:{metric_ssim:0.2f}')
 
     index = idxs[0]
+    print(np.array(psnr_vec).argsort()[index])
     axs[1, 1].plot(x[:, rem_traces[index]], 'r', label='Reference')
     axs[1, 1].plot(x_result[:, rem_traces[index]], 'b', label='Recovered')
     axs[1, 1].legend(loc='best')
@@ -52,6 +53,7 @@ def plot_results_traces(x, x_result, pattern_rand, case):
     axs[1, 1].set_title(f'Good Reconstruction')
 
     index = idxs[1]
+    print(np.array(psnr_vec).argsort()[index])
     axs[0, 2].plot(x[:, rem_traces[index]], 'r', label='Reference')
     axs[0, 2].plot(x_result[:, rem_traces[index]], 'b', label='Recovered')
     axs[0, 2].legend(loc='best')
@@ -60,6 +62,7 @@ def plot_results_traces(x, x_result, pattern_rand, case):
     axs[0, 2].set_title(f'Good Reconstruction')
 
     index = idxs[2]
+    print(np.array(psnr_vec).argsort()[index])
     axs[1, 2].plot(x[:, rem_traces[index]], 'r', label='Reference')
     axs[1, 2].plot(x_result[:, rem_traces[index]], 'b', label='Recovered')
     axs[1, 2].legend(loc='best')
@@ -68,6 +71,7 @@ def plot_results_traces(x, x_result, pattern_rand, case):
     axs[1, 2].set_title(f'Good Reconstruction')
 
     index = idxs[-1]
+    print(np.array(psnr_vec).argsort()[index])
     axs[0, 3].plot(x[:, rem_traces[index]], 'r', label='Reference')
     axs[0, 3].plot(x_result[:, rem_traces[index]], 'b', label='Recovered')
     axs[0, 3].legend(loc='best')
@@ -76,6 +80,7 @@ def plot_results_traces(x, x_result, pattern_rand, case):
     axs[0, 3].set_title(f'Bad Reconstruction')
 
     index = idxs[-2]
+    print(np.array(psnr_vec).argsort()[index])
     axs[1, 3].plot(x[:, rem_traces[index]], 'r', label='Reference')
     axs[1, 3].plot(x_result[:, rem_traces[index]], 'b', label='Recovered')
     axs[1, 3].legend(loc='best')
