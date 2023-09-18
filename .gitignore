@@ -6,3 +6,4 @@ data/spii_ga.npy
 data/syn3D_cross-spread.npy
 data/spii_180s.npy
 data/gas_lens_devito_70s.npy
+data/AVO_Mobil_viking_128x128x1001.npy
